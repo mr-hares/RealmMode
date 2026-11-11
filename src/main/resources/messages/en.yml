@@ -1,0 +1,75 @@
+prefix: "<#f7943c>Modes</#f7943c> &8▪ &r"
+not-permission: "{prefix}Insufficient permissions to use this"
+only-player: "{prefix}This command is available to <#f7943c>players only</#f7943c>"
+
+gui:
+  mode-change:
+    title: "&fSelect Mode"
+    pve-item:
+      name: "<#f7943c>PVE Mode</#f7943c>"
+      lore:
+        - "&7Build, mine, survive"
+
+    pvp-item:
+      name: "<#f7943c>PVP Mode</#f7943c>"
+      lore:
+        - "&7Gear up, kill, fight"
+
+  confirm-change:
+    title: "&fConfirm Mode"
+    accept: "&aCONFIRM"
+    decline: "&cDECLINE"
+
+  stats:
+    title: "&8Statistics — page {page}"
+    player-info:
+      unknown-name: "unknown"
+      name: "<#f7943c>{name}</#f7943c>"
+      lore:
+        - "&fMode: <#f7943c>{mode}</#f7943c>"
+        - "&f"
+        - "<#f7943c>LMB</#f7943c> &8- &fswitch mode to PVE"
+        - "<#f7943c>RMB</#f7943c> &8- &fswitch mode to PVP"
+
+    general-info:
+      name: "Statistics"
+      lore:
+        - "&fTotal players: <#f7943c>{total}</#f7943c>"
+        - "&fPVE players: <#f7943c>{pve}</#f7943c>"
+        - "&fPVP players: <#f7943c>{pvp}</#f7943c>"
+
+    prev: "&e← Back"
+    next: "&eNext →"
+
+not-up-cooldown: "{prefix}You cannot switch modes <#f7943c>this often</#f7943c>. Please wait <#f7943c>{time}</#f7943c> seconds"
+set-mode: "{prefix}You have <#f7943c>selected</#f7943c> the <#f7943c>{mode}</#f7943c> mode"
+
+titles:
+  pve:
+    title: "<#f7943c>PVE Mode</#f7943c>"
+    subtitle: "&7Build, mine, survive"
+  pvp:
+    title: "<#f7943c>PVP Mode</#f7943c>"
+    subtitle: "&7Gear up, kill, fight"
+
+broadcast:
+  first: "{prefix}Player <#f7943c>{player}</#f7943c> &fhas selected the <#f7943c>{mode}</#f7943c> mode"
+  again: "{prefix}Player <#f7943c>{player}</#f7943c> &fhas switched their mode to <#f7943c>{mode}</#f7943c>"
+
+help:
+  command-list:
+    - "{prefix}Command list:"
+    - " <#f7943c>/rm reload</#f7943c> &8- &freload the configuration"
+    - " <#f7943c>/rm change [nickname] [PVE/PVP]</#f7943c> &8- &fforce a mode change"
+    - " <#f7943c>/rm stats</#f7943c> &8- &fmode statistics"
+
+  use-change: "{prefix}Use: <#f7943c>/rm change [nickname] [PVE/PVP]</#f7943c>"
+
+reload: "{prefix}Plugin configuration <#f7943c>reloaded</#f7943c> &7(Language: {lang})"
+
+not-found-player: "{prefix}The specified player <#f7943c>was not found</#f7943c>"
+change-mode:
+  initiator: "{prefix}You have forcibly <#f7943c>changed</#f7943c> player <#f7943c>{player}</#f7943c>'s mode to 
+  <#f7943c>{mode}</#f7943c>"
+  target: "{prefix}Administrator <#f7943c>{player}</#f7943c> has forcibly <#f7943c>changed</#f7943c> your mode to 
+  <#f7943c>{mode}</#f7943c>"

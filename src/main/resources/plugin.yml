@@ -7,3 +7,10 @@ api-version: '1.21.11'
 load: POSTWORLD
 
 authors: [ mr_hares ]
+
+commands:
+  mode:
+    aliases: [md]
+  realmmode:
+    aliases: [rm]
+    permission: realm-mode.admin.reload;realm-mode.admin.change;realm-mode.admin.stats

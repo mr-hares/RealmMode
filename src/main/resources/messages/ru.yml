@@ -1,5 +1,6 @@
-prefix: "<#f7943c>Режим</#f7943c> &8▪ &r"
+prefix: "<#f7943c>Режимы</#f7943c> &8▪ &r"
 not-permission: "{prefix}Недостаточно прав для использования"
+only-player: "{prefix}Данная команда доступна <#f7943c>только</#f7943c> игроку"
 
 gui:
   mode-change:
@@ -19,6 +20,28 @@ gui:
     accept: "&aПОДТВЕРДИТЬ"
     decline: "&cОТКЛОНИТЬ"
 
+  stats:
+    title: "&8Статистика — стр. {page}"
+    player-info:
+      unknown-name: "неизвестный"
+      name: "<#f7943c>{name}</#f7943c>"
+      lore:
+        - "&fРежим: <#f7943c>{mode}</#f7943c>"
+        - "&f"
+        - "<#f7943c>ЛКМ</#f7943c> &8- &fсменить режим на PVE"
+        - "<#f7943c>ПКМ</#f7943c> &8- &fсменить режим на PVP"
+
+    general-info:
+      name: "Статистика"
+      lore:
+        - "&fВсего игроков: <#f7943c>{total}</#f7943c>"
+        - "&fPVE-игроков: <#f7943c>{pve}</#f7943c>"
+        - "&fPVP-игроков: <#f7943c>{pvp}</#f7943c>"
+
+    prev: "&e← Назад"
+    next: "&eВперёд →"
+
+not-up-cooldown: "{prefix}Нельзя так <#f7943c>часто менять</#f7943c> режимы. Ожидайте <#f7943c>{time}</#f7943c> секунд"
 set-mode: "{prefix}Вы <#f7943c>выбрали</#f7943c> режим <#f7943c>{mode}</#f7943c>"
 
 titles:
@@ -32,3 +55,21 @@ titles:
 broadcast:
   first: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fвыбрал режим <#f7943c>{mode}</#f7943c>"
   again: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fпереключил режим на <#f7943c>{mode}</#f7943c>"
+
+help:
+  command-list:
+    - "{prefix}Список команд:"
+    - " <#f7943c>/rm reload</#f7943c> &8- &fперезагрузка конфигурации"
+    - " <#f7943c>/rm change [ник] [PVE/PVP]</#f7943c> &8- &fпринудительная смена режима"
+    - " <#f7943c>/rm stats</#f7943c> &8- &fстатистика режимов"
+
+  use-change: "{prefix}Используйте: <#f7943c>/rm change [ник] [PVE/PVP]</#f7943c>"
+
+reload: "{prefix}Конфигурация плагина <#f7943c>перезагружена</#f7943c> &7(Язык: {lang})"
+
+not-found-player: "{prefix}Указанный вами игрок <#f7943c>не найден</#f7943c>"
+change-mode:
+  initiator: "{prefix}Вы принудительно <#f7943c>изменили</#f7943c> режим игрока <#f7943c>{player}</#f7943c> на 
+  <#f7943c>{mode}</#f7943c>"
+  target: "{prefix}Администратор <#f7943c>{player}</#f7943c> принудительно <#f7943c>изменили</#f7943c> Ваш режим на 
+  <#f7943c>{mode}</#f7943c>"
