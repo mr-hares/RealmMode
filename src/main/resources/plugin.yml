@@ -1,8 +1,8 @@
-name: Realm Mode Changer
-prefix: Realm Mode Changer
+name: RealmMode
+prefix: RealmMode
 version: '${version}'
 
-main: ru.mr_hares.realmModeChanger.RealmModeChanger
+main: ru.mr_hares.realmMode.RealmMode
 api-version: '1.21.11'
 load: POSTWORLD
 

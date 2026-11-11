@@ -1,0 +1,15 @@
+language: ru
+
+gui:
+  pve-item:
+    material: SHIELD
+    glowing: true
+  pvp-item:
+    material: IRON_SWORD
+    glowing: true
+
+broadcast: true
+titles: true
+
+# 3d - 3 days, 3h - 3 hours, 3m - 3 minutes
+cooldown-change: 3d

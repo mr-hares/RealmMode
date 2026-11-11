@@ -1,0 +1,34 @@
+prefix: "<#f7943c>Режим</#f7943c> &8▪ &r"
+not-permission: "{prefix}Недостаточно прав для использования"
+
+gui:
+  mode-change:
+    title: "&fВыбор режима"
+    pve-item:
+      name: "<#f7943c>Режим PVE</#f7943c>"
+      lore:
+        - "&7Строй, добывай, выживай"
+
+    pvp-item:
+      name: "<#f7943c>Режим PVP</#f7943c>"
+      lore:
+        - "&7Снаряжайся, убивай, сражайся"
+
+  confirm-change:
+    title: "&fПодтверждение режима"
+    accept: "&aПОДТВЕРДИТЬ"
+    decline: "&cОТКЛОНИТЬ"
+
+set-mode: "{prefix}Вы <#f7943c>выбрали</#f7943c> режим <#f7943c>{mode}</#f7943c>"
+
+titles:
+  pve:
+    title: "<#f7943c>Режим PVE</#f7943c>"
+    subtitle: "&7Строй, добывай, выживай"
+  pvp:
+    title: "<#f7943c>Режим PVP</#f7943c>"
+    subtitle: "&7Снаряжайся, убивай, сражайся"
+
+broadcast:
+  first: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fвыбрал режим <#f7943c>{mode}</#f7943c>"
+  again: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fпереключил режим на <#f7943c>{mode}</#f7943c>"
