@@ -31,9 +31,9 @@
 
 | Команда | Описание | Право (Permission Node) |
 | :--- | :--- | :--- |
-| `/rm reload` | Перезагружает конфигурацию плагина | `realmode.reload` |
-| `/rm change [ник] [PVE/PVP]` | Принудительно меняет режим игрока | `realmode.change` |
-| `/rm stats` | Просмотр статистики режимов | `realmode.stats` |
+| `/rm reload` | Перезагружает конфигурацию плагина | `realm-mode.admin.reload` |
+| `/rm change [ник] [PVE/PVP]` | Принудительно меняет режим игрока | `realm-mode.admin.change` |
+| `/rm stats` | Просмотр статистики режимов | `realm-mode.admin.stats` |
 
 > [!IMPORTANT]
 > **Обычные игроки** могут менять режим через GUI-меню без дополнительных прав.
