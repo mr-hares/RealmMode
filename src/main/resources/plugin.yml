@@ -1,9 +1,0 @@
-name: Realm Mode Changer
-prefix: Realm Mode Changer
-version: '${version}'
-
-main: ru.mr_hares.realmModeChanger.RealmModeChanger
-api-version: '1.21.11'
-load: POSTWORLD
-
-authors: [ mr_hares ]
