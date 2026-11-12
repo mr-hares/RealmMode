@@ -23,7 +23,7 @@ public class DataBase {
 
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + plugin.getDataFolder() +
-                    "/data.db");
+                    "/database.db");
 
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute(String.format("CREATE TABLE IF NOT EXISTS %s (" +
@@ -38,6 +38,27 @@ public class DataBase {
             Bukkit.getPluginManager().disablePlugin(plugin);
         }
 
+    }
+
+    public static boolean isConnected() {
+        try {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static void close() {
+        if (connection == null) return;
+
+        try {
+            connection.close();
+            plugin.getLogger().info("Close the database connection");
+        } catch (SQLException e) {
+            if (plugin != null) plugin.getLogger().severe("Failed to close the database connection: " + e.getMessage());
+        } finally {
+            connection = null;
+        }
     }
 
     private static TemporalAmount getTime() {
@@ -97,6 +118,28 @@ public class DataBase {
             stmt.setString(1, uuid.toString());
             stmt.setString(2, mode.getValue());
             stmt.setString(3, Instant.now().toString());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().severe(e.toString());
+        }
+    }
+
+    public static void updateMode(UUID uuid, Mode mode) {
+        try (PreparedStatement stmt =
+                     connection.prepareStatement("UPDATE info_list SET mode = ? WHERE uuid = ?")) {
+            stmt.setString(1, mode.getValue());
+            stmt.setString(2, uuid.toString());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().severe(e.toString());
+        }
+
+        try (PreparedStatement stmt =
+                     connection.prepareStatement("UPDATE info_list SET date = ? WHERE uuid = ?")) {
+            stmt.setString(1, Instant.now().toString());
+            stmt.setString(2, uuid.toString());
 
             stmt.executeUpdate();
         } catch (SQLException e) {

@@ -1,6 +1,5 @@
 package ru.mr_hares.realmMode.utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -103,9 +102,7 @@ public final class MessageUtils {
             throw new MessageNotFoundException(path, language);
         }
         List<String> result = new ArrayList<>(list.size());
-        for (String line : list) {
-            result.add(line);
-        }
+        result.addAll(list);
         return result;
     }
 

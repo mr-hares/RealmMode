@@ -64,7 +64,7 @@ public class RmCommand extends CommandTemplate {
             }
 
             Mode mode = Mode.fromValue(args[2].toLowerCase());
-            DataBase.setMode(op.getUniqueId(), mode);
+            DataBase.updateMode(op.getUniqueId(), mode);
 
             sender.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("change-mode.initiator")
                     .replace("{player}", op.getName())
@@ -78,6 +78,11 @@ public class RmCommand extends CommandTemplate {
                 ));
             }
         } else if (args[0].equalsIgnoreCase("stats")) {
+            if (!sender.hasPermission("realm-mode.admin.stats")) {
+                sender.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("not-permission")));
+                return;
+            }
+
             if (!(sender instanceof Player player)) {
                 sender.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("only-player")));
                 return;
@@ -91,17 +96,17 @@ public class RmCommand extends CommandTemplate {
 
     @Override
     public List<String> complete(CommandSender sender, String[] args) {
-        if (args.length == 0) {
+        if (args.length == 1) {
             return List.of("reload", "change", "stats");
         }
 
-        if (args.length == 1) {
+        if (args.length == 2) {
             if (args[0].equalsIgnoreCase("change")) {
                 return null;
             }
         }
 
-        if (args.length == 2) {
+        if (args.length == 3) {
             if (args[0].equalsIgnoreCase("change")) {
                 return List.of("PVE", "PVP");
             }

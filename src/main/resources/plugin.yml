@@ -1,11 +1,13 @@
 name: RealmMode
 prefix: RealmMode
 version: '${version}'
+description: Lightweight, high-performance Minecraft plugin for self-selecting PVE/PVP modes via GUI. Fully configurable, admin commands for settings & stats, hex color support
 
 main: ru.mr_hares.realmMode.RealmMode
 api-version: '1.21.11'
 load: POSTWORLD
 
+softdepend: ["PlaceholderAPI"]
 authors: [ mr_hares ]
 
 commands:
@@ -14,3 +16,39 @@ commands:
   realmmode:
     aliases: [rm]
     permission: realm-mode.admin.reload;realm-mode.admin.change;realm-mode.admin.stats
+
+permissions:
+  realm-mode.admin.*:
+    description: Права ко всем админским командам
+    default: op
+    children:
+      - realm-mode.admin.reload
+      - realm-mode.admin.change
+      - realm-mode.admin.stats
+
+  realm-mode.bypass.*:
+    description: Права к игнорированием всех ограничений
+    default: op
+    children:
+      - realm-mode.bypass.cooldown
+      - realm-mode.bypass.combat
+
+  realm-mode.admin.reload:
+    description: Возможность перезагрузки конфигурации
+    default: op
+
+  realm-mode.admin.change:
+    description: Возможность принудительно изменить режим игрока
+    default: op
+
+  realm-mode.admin.stats:
+    description: Возможность просматривать статистику режимов
+    default: op
+
+  realm-mode.bypass.cooldown:
+    description: Игнорирование КД на смену режима
+    default: op
+
+  realm-mode.bypass.combat:
+    description: Игнорирование режим боя
+    default: op

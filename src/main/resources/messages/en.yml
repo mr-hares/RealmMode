@@ -60,6 +60,9 @@ not-damage:
   pve: "{prefix}PVE players <#f7943c>cannot</#f7943c> deal damage to other players"
   pvp: "{prefix}You cannot <#f7943c>deal</#f7943c> damage to PVE players"
 
+enter-combat: "{prefix}You have <#f7943c>entered</#f7943c> combat mode. Mode change is <#f7943c>temporarily unavailable</#f7943c>"
+in-combat: "{prefix}Mode change is <#f7943c>temporarily unavailable</#f7943c>. Please wait <#f7943c>{time}</#f7943c> seconds"
+
 help:
   command-list:
     - "{prefix}Command list:"

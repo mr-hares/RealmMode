@@ -9,6 +9,11 @@ import ru.mr_hares.realmMode.objects.Mode;
 import ru.mr_hares.realmMode.utils.ColorUtil;
 import ru.mr_hares.realmMode.utils.MessageUtils;
 
+import java.util.Map;
+import java.util.UUID;
+
+import static ru.mr_hares.realmMode.RealmMode.*;
+
 public class PlayerDamage implements Listener {
 
     @EventHandler
@@ -28,6 +33,15 @@ public class PlayerDamage implements Listener {
             } else if (modePlayer == Mode.PVE) {
                 damagerPlayer.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("not-damage.pve")));
                 event.setCancelled(true);
+            } else if (modePlayer == Mode.PVP && modeTaker == Mode.PVP) {
+                Map<UUID, Boolean> in_combat = getInstance().in_combat.asMap();
+
+                String message = ColorUtil.colorize(MessageUtils.getRaw("enter-combat"));
+                if (!in_combat.containsKey(damagerPlayer.getUniqueId())) damagerPlayer.sendMessage(message);
+                if (!in_combat.containsKey(damageTaker.getUniqueId())) damageTaker.sendMessage(message);
+
+                in_combat.put(damagerPlayer.getUniqueId(), true);
+                in_combat.put(damageTaker.getUniqueId(), true);
             }
         }
     }

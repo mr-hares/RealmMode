@@ -1,5 +1,7 @@
+# Plugin language. Available: ru, en
 language: ru
 
+# Setting change mode GUI
 gui:
   pve-item:
     material: SHIELD
@@ -8,8 +10,15 @@ gui:
     material: IRON_SWORD
     glowing: true
 
+# Notifies all players of the selected mode.
 broadcast: true
+
+# Titles shown to the player for the selected mode.
 titles: true
 
+# Time before the player can change mode again
 # 3d - 3 days, 3h - 3 hours, 3m - 3 minutes
 cooldown-change: 3d
+
+# Time a player can't change mode while in combat. In seconds
+combat-cooldown: 15

@@ -6,9 +6,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import ru.mr_hares.realmMode.database.DataBase;
@@ -52,7 +50,11 @@ public class InventoryClick implements Listener {
             } else {
                 GuiSwitchFlag.mark(player.getUniqueId());
                 String key = DataBase.getMode(player.getUniqueId()) == null ? "first" : "again";
-                DataBase.setMode(player.getUniqueId(), Mode.fromValue(type));
+                if (key.equals("first")) {
+                    DataBase.setMode(player.getUniqueId(), Mode.fromValue(type));
+                } else {
+                    DataBase.updateMode(player.getUniqueId(), Mode.fromValue(type));
+                }
 
                 player.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("set-mode")
                         .replace("{mode}", type.toUpperCase())
@@ -98,7 +100,7 @@ public class InventoryClick implements Listener {
             if (StatsGUI.isInfo(clicked)) return;
 
             UUID target = StatsGUI.getPlayer(clicked);
-            if (target == null) return;
+            if (target == null || !player.hasPermission("realm-mode.admin.change")) return;
 
             Mode newMode = event.getClick() == ClickType.LEFT ? Mode.PVE : Mode.PVP;
             applyMode(player, target, newMode);
@@ -109,7 +111,7 @@ public class InventoryClick implements Listener {
 
     private void applyMode(Player initiator, UUID targetUuid, Mode mode) {
         OfflinePlayer op = Bukkit.getOfflinePlayer(targetUuid);
-        DataBase.setMode(op.getUniqueId(), mode);
+        DataBase.updateMode(op.getUniqueId(), mode);
 
         initiator.sendMessage(ColorUtil.colorize(MessageUtils.getRaw("change-mode.initiator")
                 .replace("{player}", displayName(op))
