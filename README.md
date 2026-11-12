@@ -1,7 +1,7 @@
 <div align="center">
 
 # RealmMode
-[![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/mr-hares/RealmMode/blob/master/LICENSE) [![Modrinth](https://img.shields.io/badge/modrinth-1.21.x-green?style=for-the-badge&logo=modrinth)](https://modrinth.com/project/realm-mode) [![Issues](https://img.shields.io/github/issues/mr-hares/RealmMode?style=for-the-badge&logo=github&label=Issues)](https://github.com/mr-hares/RealmMode/issues)
+[![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/mr-hares/RealmMode/blob/master/LICENSE) [![Modrinth](https://img.shields.io/badge/modrinth-1.21.x-green?style=for-the-badge&logo=modrinth)](https://modrinth.com/project/realm-mode)
 </div>
 
 **RealmMode** - это лёгкий и высокопроизводительный плагин для Minecraft, который позволяет игрокам самостоятельно выбирать между режимами **PVE** и **PVP**. Игроки переключают режим через удобное GUI-меню, а администраторы управляют настройками и статистикой с помощью команд. Плагин полностью настраивается через конфигурацию и поддерживает современные hex-цвета.
