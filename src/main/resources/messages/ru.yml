@@ -56,6 +56,10 @@ broadcast:
   first: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fвыбрал режим <#f7943c>{mode}</#f7943c>"
   again: "{prefix}Игрок <#f7943c>{player}</#f7943c> &fпереключил режим на <#f7943c>{mode}</#f7943c>"
 
+not-damage:
+  pve: "{prefix}PVE игроки <#f7943c>не могут</#f7943c> наносить урон другим игрокам"
+  pvp: "{prefix}Нельзя <#f7943c>наносить</#f7943c> урон PVE игрокам"
+
 help:
   command-list:
     - "{prefix}Список команд:"

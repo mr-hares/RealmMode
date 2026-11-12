@@ -56,6 +56,10 @@ broadcast:
   first: "{prefix}Player <#f7943c>{player}</#f7943c> &fhas selected the <#f7943c>{mode}</#f7943c> mode"
   again: "{prefix}Player <#f7943c>{player}</#f7943c> &fhas switched their mode to <#f7943c>{mode}</#f7943c>"
 
+not-damage:
+  pve: "{prefix}PVE players <#f7943c>cannot</#f7943c> deal damage to other players"
+  pvp: "{prefix}You cannot <#f7943c>deal</#f7943c> damage to PVE players"
+
 help:
   command-list:
     - "{prefix}Command list:"
