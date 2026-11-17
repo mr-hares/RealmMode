@@ -11,7 +11,7 @@ paper-supported: true
 bukkit-supported: true
 
 softdepend: ["PlaceholderAPI", "SkinsRestorer"]
-authors: [ mr_hares ]
+authors: [ w1nsy ]
 
 commands:
   mode:
@@ -21,6 +21,13 @@ commands:
     permission: realm-mode.admin.reload;realm-mode.admin.change;realm-mode.admin.stats
 
 permissions:
+  realm-mode.*:
+    description: Права ко всем админским командам
+    default: op
+    children:
+      - realm-mode.admin.*
+      - realm-mode.bypass.*
+
   realm-mode.admin.*:
     description: Права ко всем админским командам
     default: op
