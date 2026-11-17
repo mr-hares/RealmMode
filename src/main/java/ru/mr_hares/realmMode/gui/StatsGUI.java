@@ -15,11 +15,13 @@ import ru.mr_hares.realmMode.database.DataBase;
 import ru.mr_hares.realmMode.objects.Mode;
 import ru.mr_hares.realmMode.utils.ColorUtil;
 import ru.mr_hares.realmMode.utils.MessageUtils;
+import ru.mr_hares.realmMode.utils.SkinUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -64,35 +66,47 @@ public class StatsGUI implements InventoryHolder {
     public @NotNull Inventory getInventory() {
         if (inventory != null) return inventory;
 
+        Map<UUID, Mode> entries = DataBase.getList();
+        List<UUID> uuids = new ArrayList<>(entries.keySet());
+
+        int totalPages = Math.max(1, (uuids.size() + CONTENT_SIZE - 1) / CONTENT_SIZE);
+
         String title = MessageUtils.getRaw("gui.stats.title")
                 .replace("{page}", String.valueOf(page + 1));
-        inventory = Bukkit.createInventory(this, 45, ColorUtil.colorize(title));
 
-        Map<UUID, Mode> list = DataBase.getList();
-        List<UUID> uuids = new ArrayList<>(list.keySet());
+        final Inventory inv = Bukkit.createInventory(this, 45, ColorUtil.colorize(title));
+        inventory = inv;
 
         int from = page * CONTENT_SIZE;
         int to = Math.min(from + CONTENT_SIZE, uuids.size());
-        for (int i = from; i < to; i++) {
-            UUID uuid = uuids.get(i);
-            inventory.setItem(CONTENT_SLOTS[i - from], getPlayerInfo(uuid, list.get(uuid)));
+
+        if (from < to) {
+            List<CompletableFuture<Void>> futures = new ArrayList<>(to - from);
+
+            for (int i = from; i < to; i++) {
+                final int slot = CONTENT_SLOTS[i - from];
+                UUID uuid = uuids.get(i);
+
+                futures.add(getPlayerInfo(uuid, entries.get(uuid))
+                        .thenAccept(item -> Bukkit.getScheduler().runTask(getInstance(), () -> {
+                            if (inventory != inv) return;
+                            inv.setItem(slot, item);
+                        })));
+            }
         }
 
-        int totalPages = Math.max(1, (uuids.size() + CONTENT_SIZE - 1) / CONTENT_SIZE);
-        if (page > 0 && page != totalPages)
-            inventory.setItem(PREV_SLOT, getNav("prev", Material.ARROW,
+        if (page > 0)
+            inv.setItem(PREV_SLOT, getNav("prev", Material.ARROW,
                     MessageUtils.getRaw("gui.stats.prev")));
         if (page < totalPages - 1)
-            inventory.setItem(NEXT_SLOT, getNav("next", Material.ARROW,
+            inv.setItem(NEXT_SLOT, getNav("next", Material.ARROW,
                     MessageUtils.getRaw("gui.stats.next")));
 
-        inventory.setItem(INFO_SLOT, getGeneralInfo(list));
+        inv.setItem(INFO_SLOT, getGeneralInfo(entries));
+        fillBorder(inv);
 
-        fillBorder(inventory);
-
-        return inventory;
+        return inv;
     }
-
 
     private ItemStack getNav(String action, Material mat, String rawName) {
         ItemStack item = new ItemStack(mat);
@@ -135,28 +149,32 @@ public class StatsGUI implements InventoryHolder {
         return item;
     }
 
-    private ItemStack getPlayerInfo(UUID uuid, Mode mode) {
-        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-        ItemMeta meta = item.getItemMeta();
-
+    private CompletableFuture<ItemStack> getPlayerInfo(UUID uuid, Mode mode) {
         OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+
         String name = op.hasPlayedBefore()
                 ? op.getName()
                 : MessageUtils.getRaw("gui.stats.player-info.unknown-name");
 
-        meta.setDisplayName(ColorUtil.colorize(
-                MessageUtils.getRaw("gui.stats.player-info.name").replace("{name}", name)));
+        String displayName = ColorUtil.colorize(
+                MessageUtils.getRaw("gui.stats.player-info.name").replace("{name}", name));
 
-        List<String> lore = MessageUtils.getList("gui.stats.player-info.lore").stream()
+        List<String> lore = ColorUtil.colorize(MessageUtils.getList("gui.stats.player-info.lore").stream()
                 .map(line -> line.replace("{mode}", mode.getValue().toUpperCase()))
-                .toList();
-        meta.setLore(ColorUtil.colorize(lore));
+                .toList());
 
-        meta.getPersistentDataContainer().set(PLAYER_KEY, PersistentDataType.STRING, uuid.toString());
+        return CompletableFuture.supplyAsync(() -> {
+            ItemStack item = SkinUtils.getHead(op);
+            ItemMeta meta = item.getItemMeta();
 
-        hideFlags(meta);
-        item.setItemMeta(meta);
-        return item;
+            meta.setDisplayName(displayName);
+            meta.setLore(lore);
+            meta.getPersistentDataContainer().set(PLAYER_KEY, PersistentDataType.STRING, uuid.toString());
+
+            hideFlags(meta);
+            item.setItemMeta(meta);
+            return item;
+        }, runnable -> Bukkit.getScheduler().runTaskAsynchronously(getInstance(), runnable));
     }
 
     public static void fillBorder(Inventory inv) {

@@ -6,8 +6,11 @@ description: Lightweight, high-performance Minecraft plugin for self-selecting P
 main: ru.mr_hares.realmMode.RealmMode
 api-version: '1.21.11'
 load: POSTWORLD
+purpur-supported: true
+paper-supported: true
+bukkit-supported: true
 
-softdepend: ["PlaceholderAPI"]
+softdepend: ["PlaceholderAPI", "SkinsRestorer"]
 authors: [ mr_hares ]
 
 commands:

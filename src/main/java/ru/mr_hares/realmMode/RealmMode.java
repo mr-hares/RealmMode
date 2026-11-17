@@ -2,6 +2,9 @@ package ru.mr_hares.realmMode;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import net.skinsrestorer.api.SkinsRestorerProvider;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -16,6 +19,7 @@ import ru.mr_hares.realmMode.listeners.PlayerDamage;
 import ru.mr_hares.realmMode.listeners.PlayerJoin;
 import ru.mr_hares.realmMode.utils.ExpansionUtils;
 import ru.mr_hares.realmMode.utils.MessageUtils;
+import ru.mr_hares.realmMode.utils.SkinUtils;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +50,18 @@ public final class RealmMode extends JavaPlugin {
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new ExpansionUtils().register();
+        } else {
+            getLogger().warning("Failed to register placeholders due to the absence of the Placeholder API");
         }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("SkinsRestorer")) {
+            SkinUtils.init(this, SkinsRestorerProvider.get());
+        } else {
+            getLogger().warning("Failed to register the skins due to the absence of the SkinsRestorer");
+        }
+
+        int pluginId = 35409;
+        new Metrics(this, pluginId);
     }
 
     private void initListeners(Plugin p, Listener... listeners) {
