@@ -1,3 +1,5 @@
+update: true
+
 # Plugin language. Available: ru, en
 language: ru
 
@@ -9,6 +11,7 @@ gui:
   pvp-item:
     material: IRON_SWORD
     glowing: true
+
 
 # Notifies all players of the selected mode.
 broadcast: true

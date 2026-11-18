@@ -4,7 +4,6 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import net.skinsrestorer.api.SkinsRestorerProvider;
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -55,13 +54,12 @@ public final class RealmMode extends JavaPlugin {
         }
 
         if (Bukkit.getPluginManager().isPluginEnabled("SkinsRestorer")) {
-            SkinUtils.init(this, SkinsRestorerProvider.get());
+            SkinUtils.init(SkinsRestorerProvider.get());
         } else {
             getLogger().warning("Failed to register the skins due to the absence of the SkinsRestorer");
         }
 
-        int pluginId = 35409;
-        new Metrics(this, pluginId);
+        new Metrics(this, 35409);
     }
 
     private void initListeners(Plugin p, Listener... listeners) {

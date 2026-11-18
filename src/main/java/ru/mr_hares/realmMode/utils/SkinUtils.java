@@ -16,14 +16,12 @@ import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
 public final class SkinUtils {
-    private static Plugin plugin;
     private static SkinsRestorer skinsRestorer;
 
     private SkinUtils() {
     }
 
-    public static void init(Plugin plugin, SkinsRestorer skinsRestorer) {
-        SkinUtils.plugin = plugin;
+    public static void init(SkinsRestorer skinsRestorer) {
         SkinUtils.skinsRestorer = skinsRestorer;
     }
 

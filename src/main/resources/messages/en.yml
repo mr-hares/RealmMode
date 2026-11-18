@@ -2,6 +2,16 @@ prefix: "<#f7943c>Modes</#f7943c> &8▪ &r"
 not-permission: "{prefix}Insufficient permissions to use this"
 only-player: "{prefix}This command is available to <#f7943c>players only</#f7943c>"
 
+time:
+  days: "{days} d."
+  hours: "{hours} h."
+  minutes: "{minutes} min."
+  seconds: "{seconds} s."
+
+update:
+  - "{prefix}A new version of the plugin is available: &c{current} &7-> &a{latest}"
+  - "{prefix}To update, open: <click:open_url:'{url}'><#00AF5C>Modrinth</#00AF5C></click>"
+
 gui:
   mode-change:
     title: "&fSelect Mode"

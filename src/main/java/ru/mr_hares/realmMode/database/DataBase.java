@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.mr_hares.realmMode.objects.Mode;
+import ru.mr_hares.realmMode.utils.MessageUtils;
 
 import java.sql.*;
 import java.time.Duration;
@@ -95,7 +96,7 @@ public class DataBase {
         return true;
     }
 
-    public static long getTime(UUID uuid) {
+    public static String getTime(UUID uuid) {
         try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM info_list WHERE uuid = ?")) {
             stmt.setString(1, uuid.toString());
             ResultSet rs = stmt.executeQuery();
@@ -103,13 +104,47 @@ public class DataBase {
             if (rs.next()) {
                 Instant then = Instant.parse(rs.getString("date"));
                 Duration dr = Duration.between(Instant.now(), then.plus(getTime()));
-                return dr.toSeconds();
+                return getTimeFormat(dr);
             }
         } catch (SQLException e) {
             plugin.getLogger().severe(e.toString());
         }
 
-        return 0;
+        return null;
+    }
+
+    private static String getTimeFormat(Duration dr) {
+        long seconds = dr.getSeconds();
+
+        String days_format = MessageUtils.getRaw("time.days");
+        String hours_format = MessageUtils.getRaw("time.hours");
+        String minutes_format = MessageUtils.getRaw("time.minutes");
+        String seconds_format = MessageUtils.getRaw("time.seconds");
+
+        int days = (int) Math.floor((double) seconds / 86400);
+        int hours = (int) Math.floor((double) (seconds - 86400L*days) / 3600);
+        int minutes = (int) Math.floor((double) (seconds - 86400L*days - 3600L*hours) / 60);
+        if (days > 0) {
+            return String.format("%s %s %s %s",
+                    days_format.replace("{days}", String.valueOf(days)),
+                    hours_format.replace("{hours}", String.valueOf(hours)),
+                    minutes_format.replace("{minutes}", String.valueOf(minutes)),
+                    seconds_format.replace("{seconds}", String.valueOf(seconds))
+            );
+        } else if (hours > 0) {
+            return String.format("%s %s %s",
+                    hours_format.replace("{hours}", String.valueOf(hours)),
+                    minutes_format.replace("{minutes}", String.valueOf(minutes)),
+                    seconds_format.replace("{seconds}", String.valueOf(seconds))
+            );
+        } else if (minutes > 0) {
+            return String.format("%s %s",
+                    minutes_format.replace("{minutes}", String.valueOf(minutes)),
+                    seconds_format.replace("{seconds}", String.valueOf(seconds))
+            );
+        } else {
+            return seconds_format.replace("{seconds}", String.valueOf(seconds - 86400L*days - 3600L*hours - 60L*minutes));
+        }
     }
 
     public static void setMode(UUID uuid, Mode mode) {

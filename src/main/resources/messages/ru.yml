@@ -2,6 +2,16 @@ prefix: "<#f7943c>Режимы</#f7943c> &8▪ &r"
 not-permission: "{prefix}Недостаточно прав для использования"
 only-player: "{prefix}Данная команда доступна <#f7943c>только</#f7943c> игроку"
 
+time:
+  days: "{days} д."
+  hours: "{hours} ч."
+  minutes: "{minutes} мин."
+  seconds: "{seconds} сек."
+
+update:
+  - "{prefix}Доступна новая версия плагина: &c{current} &7-> &a{latest}"
+  - "{prefix}Чтобы обновить, откройте: <click:open_url:'{url}'><#00AF5C>Modrinth</#00AF5C></click>"
+
 gui:
   mode-change:
     title: "&fВыбор режима"
